@@ -1,6 +1,5 @@
-import {Component, Pipe, PipeTransform } from '@angular/core';
+import {Component, Pipe, PipeTransform, EventEmitter, Output } from '@angular/core';
 import {GitHubService } from '../services/github.service';
-import {KeysPipe } from './keyvalues.pipe';
 import {Observable} from 'rxjs/Observable';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import 'rxjs/add/operator/map';
@@ -10,23 +9,38 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'search-box',
-  template: `
-    <div>
-      <input type="text" />
-      <ul>
-        <li *ngFor="let item of items | async">{{item}}</li>
-      </ul>
-    </div>
-  `,
-    providers: [GitHubService]
+  templateUrl:'searchbox.component.html',
+  providers: [GitHubService]
 })
 
 export class SearchBoxComponent {
-  items: Observable<Array<string>>;
+  @Output() userUpdated: EventEmitter<string> = new EventEmitter<string>(); 
+  
   term = new FormControl();
+  users: Array<any>;
+
   constructor(private _githubService: GitHubService) {
-    this.items = this._githubService.searchUsers(this.term.valueChanges);
   }
 
-}
+  ngOnInit(){
+      this.term.valueChanges
+                  // .debounceTime(400)
+                  .flatMap(term => this._githubService.searchUsers(term))
+                  .subscribe((result) => {
+                    console.log(result);
+                    this.users = <Array<any>>result.items
+                  });
+  }
 
+  onClick(user: string) {
+    this.term.setValue(user);
+    this.userUpdated.emit(user);
+  }
+
+  handleError(error: any)
+  {
+    let errorMessage = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : `Unexpected Error`;
+    console.log(errorMessage);
+    return Observable.empty();
+  }
+}

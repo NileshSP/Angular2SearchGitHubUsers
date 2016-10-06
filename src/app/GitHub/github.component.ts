@@ -19,7 +19,6 @@ export class GitHubComponent {
   constructor(private _githubService:GitHubService){
       this.user = false;
       this.userslist = null;
-      //this.getUserDetails();
   }
 
   getUserDetails(){
@@ -36,8 +35,8 @@ export class GitHubComponent {
         this.getUserDetails();
   }
 
-  search(searchterm){
-      //this.userslist = 
-      console.log(this._githubService.searchUsers(searchterm));
+  userUpdated(user) {
+        this.username = user;
+        this.searchUser();
   }
 }

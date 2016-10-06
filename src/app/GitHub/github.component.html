@@ -2,14 +2,8 @@
     <div class="col-md-12">
         <form>
             <div class="form-group">
-                <input id="usertext" type="text" class="form-control" placeholder="Search for github user...(example:NileshSP)" [(ngModel)]="username" name="usertext" (keyup.enter)="searchUser()" />
-                <!--<input id="users" type="text" class="form-control" placeholder="Search for github user..." (keyup)="search(users.value)" name="users" />
-                <div *ngIf="userslist">
-                    <ul class="list-group">
-                        <li class="list-group-item" *ngFor="let item of userslist | async">{{item}}</li>
-                    </ul>
-                </div>-->
-                <!--<search-box></search-box>-->
+                <!--<input id="usertext" type="text" class="form-control" placeholder="Search for github user...(example:NileshSP)" [(ngModel)]="username" name="usertext" (keyup.enter)="searchUser()" />-->
+                <search-box (userUpdated)="userUpdated($event)"></search-box>
             </div>
         </form>
     </div>
