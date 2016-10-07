@@ -25,7 +25,9 @@ export class SearchBoxComponent {
   ngOnInit(){
       this.term.valueChanges
                   // .debounceTime(400)
-                  .flatMap(term => this._githubService.searchUsers(term))
+                  .switchMap(term => this._githubService.searchUsers(term)
+                                        .catch(err => this.handleError(err))
+                            )
                   .subscribe((result) => {
                     console.log(result);
                     this.users = <Array<any>>result.items

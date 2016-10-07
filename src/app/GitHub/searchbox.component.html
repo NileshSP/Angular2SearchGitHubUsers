@@ -29,10 +29,10 @@
     display: block;
 }
 </style>
-<div class="dropdown">
-    <input type="text" [formControl]="term" class="form-control"/>
-    <div class="dropdown-content">
-        <a href="#" *ngFor="let user of users" (click)='onClick(user.login)'>{{ user.login }}</a>
+<div class="dropdown" style="width:100%;" >
+    <input type="text" [formControl]="term" class="form-control" placeholder="Search user...(example:NileshSP)" />
+    <div class="dropdown-content" >
+        <a href="#" *ngFor="let user of users" (click)="onClick(user.login)">{{ user.login }}</a>
     </div>
 </div>
 <!--<h3 *ngIf="users" ># of users available: {{ (users)?.length }}</h3>-->
