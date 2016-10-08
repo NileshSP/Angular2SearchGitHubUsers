@@ -25,6 +25,7 @@ export class SearchBoxComponent {
   ngOnInit(){
       this.term.valueChanges
                   .debounceTime(300)
+                  .do(val => this.users = null)
                   .filter(val => val !== '')
                   .switchMap(term => 
                                     this._githubService.searchUsers(term)

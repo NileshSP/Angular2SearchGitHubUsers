@@ -30,7 +30,7 @@
 }
 </style>
 <div class="dropdown" style="width:100%;" >
-    <input type="text" [formControl]="term" class="form-control" placeholder="Search user...(example:NileshSP)" />
+    <input type="text" [formControl]="term" class="form-control" placeholder="Search user by github login...(example:NileshSP)" />
     <div class="dropdown-content" >
         <a href="#" *ngFor="let user of users" (click)="onClick(user.login)">{{ user.login }}</a>
     </div>
