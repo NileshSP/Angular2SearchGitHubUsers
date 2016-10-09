@@ -11,15 +11,15 @@ export class GitHubService {
   }  
 
   searchUsers(searchUser: string): Observable<any>{
-    return this._http.get('https://api.github.com/search/users?q='+searchUser+'%20in:login&per_page=5')
+    return this._http.get('https://api.github.com/search/users?q='+searchUser+'%20in:fullname')//&per_page=5
         .map(res => res.json())
  }
 
   private handleError (error: any) {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
+      console.error(errMsg); // log to console instead
+      return Observable.throw(errMsg);
   }
 
   getUser(){

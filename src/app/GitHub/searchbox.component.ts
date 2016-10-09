@@ -32,13 +32,13 @@ export class SearchBoxComponent {
                                           .catch(err => this.handleError(err))
                             )
                   .subscribe((result) => {
-                                    //console.log(result);
+                                    console.log(result);
                                     this.users = <Array<any>>result.items
                   });
   }
 
   onClick(user: string) {
-    this.term.setValue(user);
+    //this.term.setValue(user);
     this.userUpdated.emit(user);
   }
 
